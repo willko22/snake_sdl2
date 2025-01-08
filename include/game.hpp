@@ -16,12 +16,10 @@ class Game {
         Snake snake;
         Direction* currentDirection;
         SDL_Rect foodBounds;
+        set<SDL_Rect*> excludeRandPos;
         vector<Food> food;
         bool running;
 
-        int lastTime;
-        int currentTime;
-        int deltaTime;
 
         void handleEvents(SDL_Event& wEvent);
         void update();

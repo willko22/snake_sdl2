@@ -1,12 +1,5 @@
 #include "../include/snake.hpp"
 
-Snake::Snake(SDL_Rect head)
-    : head(head)
-{
-    headPtr = &head;
-    dir = STOP;
-}
-
 Snake::~Snake(){
     body.clear();
     body.shrink_to_fit();
@@ -16,35 +9,59 @@ Snake::~Snake(){
 }
 
 void Snake::move(){
-    body.push_front(head);
+    // body.push_front(head);
+    int oldHeadX = head.x;
+    int oldHeadY = head.y;
 
     moveHead();
 
-    if(growAmount == 0 && body.size() > 0){
-        // deleteSegments.push_back(body.back());
-        body.pop_back();
-    } else if (growAmount < 0){
-        while (growAmount < 0 && body.size() > 0) {
+    if (growAmount < 0){
+        while (growAmount < 0 && !body.empty()) {
             // deleteSegments.push_back(body.back());
-            body.pop_back();
+            SDL_Rect* lastSegmentPtr = bodyPtrs.back();
+            bodyPtrs.pop_back();
+
+            auto it = find_if(body.begin(), body.end(), [lastSegmentPtr](const SDL_Rect& rect) {
+                return &rect == lastSegmentPtr;
+            });
+            if (it != body.end()) {
+                body.erase(it);
+            }
+
             growAmount++;
         }
         growAmount = 0;
 
-    } else {
+    }
+    
+    if (growAmount > 0){
+        
+        body.push_back({oldHeadX, oldHeadY, head.w, head.h});
+        bodyPtrs.push_front(&body.back());
+        
         growAmount--;
+        
+    } else if (growAmount == 0 && !body.empty()) {
+        // Set the last segment to the position of the head
+        SDL_Rect* lastSegmentPtr = bodyPtrs.back();
+        lastSegmentPtr->x = oldHeadX;
+        lastSegmentPtr->y = oldHeadY;
+
+        bodyPtrs.pop_back();
+        bodyPtrs.push_front(lastSegmentPtr);
     }
 }
 
 
 void Snake::draw(SDL_Renderer* renderer){
     setRenderDrawColor(renderer, HEAD_COLOR);
-    SDL_RenderFillRect(renderer, headPtr);
+    SDL_RenderFillRect(renderer, &head);
 
-    if (body.size() > 0){
+
+    if (!bodyPtrs.empty()){
         setRenderDrawColor(renderer, BODY_COLOR);
-        for (SDL_Rect& segment : body){
-            SDL_RenderFillRect(renderer, &segment);
+        for (SDL_Rect* segment : bodyPtrs){
+            SDL_RenderFillRect(renderer, segment);
         }
     }
 

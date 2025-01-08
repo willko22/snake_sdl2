@@ -5,7 +5,6 @@
 class Food : public Renderable {
     private:
         SDL_Rect rect;
-        const SDL_Rect* rectPtr;
         SDL_Color color;
         SDL_Rect randomBounds;
         int modifier;
@@ -13,7 +12,7 @@ class Food : public Renderable {
     public:
 
         inline Food(const SDL_Rect& rect, const SDL_Color& sdlColor, int modif, const SDL_Rect& bounds)
-            : rect(rect), rectPtr(&rect),color(sdlColor), randomBounds(bounds), modifier(modif){};
+            : rect(rect), color(sdlColor), randomBounds(bounds), modifier(modif){};
         ~Food();
         
         void draw(SDL_Renderer* renderer);
@@ -21,7 +20,7 @@ class Food : public Renderable {
         inline void setPos(int x, int y) { rect.x = x; rect.y = y; }
         inline void setColor(const SDL_Color& newColor) { color = newColor; }
         inline void setModifier(int newModifier) { modifier = newModifier; }
-        void setRandomPosition();
+        void setRandomPosition(set<SDL_Rect*> snakeBody);
 
         inline SDL_Rect* getRect() { return &rect; }
 

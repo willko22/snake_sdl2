@@ -17,7 +17,7 @@ set VERSION= -IC:\SDL\include -LC:\SDL\lib -lmingw32 -lSDL2main -lSDL2 -lSDL2_tt
 
 :: Compile the main source file (ensure main.cpp is present in the correct location) 
 g++ -o "%FILE_PATH%" "%CPP_FILE_PATH%" %WINDOW_MODE% -Wall -std=c++23 %VERSION%
-:: -s -Os
+:: -pg -s -Os
 timeout /t 1 /nobreak > nul
 
 

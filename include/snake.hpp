@@ -5,16 +5,16 @@
 class Snake : public Renderable {
     private:
         SDL_Rect head;
-        SDL_Rect* headPtr;
         // vector<SDL_Rect> deleteSegments;
-        deque<SDL_Rect> body;
+        vector<SDL_Rect> body;
+        deque<SDL_Rect*> bodyPtrs;
         int growAmount = 0;
         Direction dir;
 
         inline void moveHead();
 
     public:
-        Snake(SDL_Rect head);
+        Snake(SDL_Rect initialHead) : head(initialHead), growAmount(0), dir(STOP){}
         ~Snake();
         void move();
         void draw(SDL_Renderer* renderer);
@@ -23,17 +23,18 @@ class Snake : public Renderable {
         inline bool checkCollision(SDL_Rect* other) const;
         inline bool checkCollisionSelf();
         inline void setDirection(Direction newDir) { dir = newDir; }
-        inline SDL_Rect getHead() const { return head; }
+        inline SDL_Rect& getHead() { return head; }
         inline Direction* getDirection() { return &dir; }
+        inline deque<SDL_Rect*>& getBody() { return bodyPtrs; }
 };
 
 inline bool Snake::checkCollision(SDL_Rect* other) const{
-    return SDL_HasIntersection(headPtr, other);
+    return SDL_HasIntersection(&head, other);
 }
 
 inline bool Snake::checkCollisionSelf(){
     for (SDL_Rect& segment : body) {
-        if (SDL_HasIntersection(headPtr, &segment)) {
+        if (SDL_HasIntersection(&head, &segment)) {
             return true;
         }
     }

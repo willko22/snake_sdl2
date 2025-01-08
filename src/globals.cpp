@@ -3,7 +3,7 @@
 using namespace std;
 
 const char* WINDOW_TITLE = "Snake Game";
-int TARGET_FPS = 20;
+int TARGET_FPS = 8;
 float TARGET_FRAME_DURATION = 1000 / TARGET_FPS;
 
 //// Fonts
@@ -13,7 +13,7 @@ const int SCORE_FONT_SIZE = 40;
 //// Window and grid dimensions
 int WINDOW_WIDTH = 800;
 int WINDOW_HEIGHT = 800;
-int TILE_SIZE = 10;
+int TILE_SIZE = 20;
 int GRID_TILES_COUNT_X = WINDOW_WIDTH / TILE_SIZE;
 int GRID_TILES_COUNT_Y = WINDOW_HEIGHT / TILE_SIZE;
 int GRID_WIDTH = GRID_TILES_COUNT_X * TILE_SIZE;
@@ -22,18 +22,6 @@ int MARGIN_X = (WINDOW_WIDTH - GRID_WIDTH) / 2;
 int MARGIN_Y = (WINDOW_HEIGHT - GRID_HEIGHT) / 2;
 int GRID_CENTER_TILE_X = GRID_TILES_COUNT_X / 2;
 int GRID_CENTER_TILE_Y = GRID_TILES_COUNT_Y /2;
-
-cout << WINDOW_WIDTH << endl;
-cout << WINDOW_HEIGHT << endl;
-cout << TILE_SIZE << endl;
-cout << GRID_TILES_COUNT_X << endl;
-cout << GRID_TILES_COUNT_Y << endl;
-cout << GRID_WIDTH << endl;
-cout << GRID_HEIGHT << endl;
-cout << MARGIN_X << endl;
-cout << MARGIN_Y << endl;
-cout << GRID_CENTER_TILE_X << endl;
-cout << GRID_CENTER_TILE_Y << endl;
 
 //// Game settings
 int INITIAL_SNAKE_SIZE = 1;

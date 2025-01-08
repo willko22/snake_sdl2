@@ -11,22 +11,24 @@ Game::Game(SDL_Renderer* inputRenderer)
     
     renderManager.addRenderer(renderer);
     
-    SDL_Rect snakeHead = snake.getHead();
+    SDL_Rect* snakeHead = &snake.getHead();
     currentDirection = snake.getDirection();
 
     //// create apples
     int boundDistanceX = GRID_TILES_COUNT_X/3 * TILE_SIZE;
     int boundDistanceY = GRID_TILES_COUNT_Y/3 * TILE_SIZE;
     foodBounds = {
-        snakeHead.x - boundDistanceX, 
-        snakeHead.y - boundDistanceY, 
-        snakeHead.x + boundDistanceX, 
-        snakeHead.y + boundDistanceY
+        snakeHead->y - boundDistanceX, 
+        snakeHead->y - boundDistanceY, 
+        snakeHead->x + boundDistanceX, 
+        snakeHead->y + boundDistanceY
     };
     
+    excludeRandPos.insert(snakeHead);
     for (int i = 0; i < INITIAL_FOOD_AMOUNT; i++){
         food.push_back(Food({0, 0, TILE_SIZE, TILE_SIZE}, APPLE_COLOR, APPLES_MODIFIER, foodBounds));
-        food[i].setRandomPosition();
+        food.back().setRandomPosition(excludeRandPos);
+        excludeRandPos.insert(food.back().getRect());
     }
 
    
@@ -82,9 +84,14 @@ void Game::update(){
     for (Food& apple : food){
         if (snake.checkCollision(apple.getRect())){
             int mod = apple.getModifier();
-            snake.grow(mod);
-            apple.setRandomPosition();
             score.incrementScore(mod);
+            snake.grow(mod);
+
+            deque<SDL_Rect*> excludeBodyPtrs = snake.getBody();
+            for (SDL_Rect* excludeBodyPtr : excludeBodyPtrs){
+                excludeRandPos.insert(excludeBodyPtr);
+            }
+            apple.setRandomPosition(excludeRandPos);
         }
     }
 }
@@ -97,10 +104,13 @@ void Game::render(){
 
     SDL_RenderPresent(renderer);
 }
-
 void Game::run()
 {
     SDL_Event wEvent;
+    unsigned int lastTime = SDL_GetTicks();
+    unsigned int currentTime = SDL_GetTicks();
+    unsigned int deltaTime = 0;
+
     running = true;
     while(running){
 
@@ -110,9 +120,10 @@ void Game::run()
 
         lastTime = currentTime;
         currentTime = SDL_GetTicks();
-        deltaTime = currentTime - lastTime;
+        deltaTime += currentTime - lastTime;
         if (deltaTime >= TARGET_FRAME_DURATION) {
             update();
+            deltaTime -= TARGET_FRAME_DURATION;
         }
 
         render();

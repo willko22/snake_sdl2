@@ -11,6 +11,8 @@
 #include <cstdlib>
 #include <cmath>
 #include <set>
+#include <memory>
+
 
 using namespace std;
 
@@ -48,7 +50,7 @@ extern int INITIAL_FOOD_AMOUNT;
 extern int APPLES_MODIFIER;
 
 //// Enums
-enum Direction { UP, DOWN, LEFT, RIGHT, STOP};
+enum Direction { UP, RIGHT, DOWN, LEFT, STOP};
 enum TextMode { NORMAL, FIT, CENTERED, RATIO};
 
 //// functions

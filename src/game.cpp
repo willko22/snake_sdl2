@@ -80,19 +80,19 @@ void Game::handleEvents(SDL_Event& wEvent){
         if (keyBuffer.size() >= 3) return;
         switch (key){
             case SDLK_UP:
-                if (!keyBuffer.empty()) { if(keyBuffer.back() != DOWN) keyBuffer.push_back(UP); }
+                if (!keyBuffer.empty()) { if(keyBuffer.back() != DOWN && keyBuffer.back() != UP) keyBuffer.push_back(UP); }
                 else if (snake.getDirection() != DOWN) { keyBuffer.push_back(UP); }
                 break;
             case SDLK_DOWN:
-                if (!keyBuffer.empty()) { if(keyBuffer.back() != UP) keyBuffer.push_back(DOWN); }
+                if (!keyBuffer.empty()) { if(keyBuffer.back() != UP && keyBuffer.back() != DOWN) keyBuffer.push_back(DOWN); }
                 else if (snake.getDirection() != UP) { keyBuffer.push_back(DOWN); }
                 break;
             case SDLK_LEFT:
-                if (!keyBuffer.empty()) { if(keyBuffer.back() != RIGHT) keyBuffer.push_back(LEFT); }
+                if (!keyBuffer.empty()) { if(keyBuffer.back() != RIGHT && keyBuffer.back() != LEFT) keyBuffer.push_back(LEFT); }
                 else if (snake.getDirection() != RIGHT) { keyBuffer.push_back(LEFT); }
                 break;
             case SDLK_RIGHT:
-                if (!keyBuffer.empty()) { if(keyBuffer.back() != LEFT) keyBuffer.push_back(RIGHT); }
+                if (!keyBuffer.empty()) { if(keyBuffer.back() != LEFT && keyBuffer.back() != RIGHT) keyBuffer.push_back(RIGHT); }
                 else if (snake.getDirection() != LEFT) { keyBuffer.push_back(RIGHT); }
                 break;
             default:

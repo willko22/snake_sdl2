@@ -1,5 +1,5 @@
 #include "../include/renderManager.hpp"
-using namespace std;
+// using namespace std;
 
 RenderManager::~RenderManager()
 {

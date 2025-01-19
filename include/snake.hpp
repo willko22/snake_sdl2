@@ -6,15 +6,16 @@ class Snake : public Renderable {
     private:
         SDL_Rect head;
         // vector<SDL_Rect> deleteSegments;
-        vector<SDL_Rect> body;
-        deque<SDL_Rect*> bodyPtrs;
-        int growAmount = 0;
+        std::list<SDL_Rect> body;
+        int growAmount;
         Direction dir;
+        unsigned int indexOfLastSegment = 0;
+        unsigned int bodySize = 0;
 
         inline void moveHead();
 
     public:
-        Snake(SDL_Rect initialHead) : head(initialHead), growAmount(0), dir(STOP){}
+        Snake(SDL_Rect initialHead) : head(initialHead), growAmount(INITIAL_SNAKE_SIZE), dir(STOP) {}
         ~Snake();
         void move();
         void draw(SDL_Renderer* renderer);
@@ -23,9 +24,11 @@ class Snake : public Renderable {
         inline bool checkCollision(SDL_Rect* other) const;
         inline bool checkCollisionSelf();
         inline void setDirection(Direction newDir) { dir = newDir; }
-        inline SDL_Rect& getHead() { return head; }
-        inline Direction* getDirection() { return &dir; }
-        inline deque<SDL_Rect*>& getBody() { return bodyPtrs; }
+        inline const SDL_Rect& getHead() const { return head; }
+        inline const Direction& getDirection() const { return dir; }
+        inline std::list<SDL_Rect>* getBody() { return &body; }
+
+        void reset(SDL_Rect initialHead);
 };
 
 inline bool Snake::checkCollision(SDL_Rect* other) const{
@@ -48,5 +51,5 @@ inline void Snake::moveHead(){
         case LEFT: head.x -= TILE_SIZE; break;
         case RIGHT: head.x += TILE_SIZE; break;
         default: break;
-    }
+    } 
 }

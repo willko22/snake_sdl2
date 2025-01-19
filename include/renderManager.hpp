@@ -3,12 +3,12 @@
 #include "globals.hpp"
 
 
-using namespace std;
+// using namespace std;
 
 
 class RenderManager {
     private:
-        map<int, std::vector<Renderable*>> drawOrder;  // Using raw pointers
+        std::map<int, std::vector<Renderable*>> drawOrder;  // Using raw pointers
         SDL_Renderer* rendererPtr;
     public:
         inline RenderManager() : rendererPtr(nullptr) {}
@@ -29,7 +29,7 @@ inline void RenderManager::addElement(int index, Renderable* element)
     // if the key does not exist, create a new vector
     if (drawOrder.find(index) == drawOrder.end())
     {
-        drawOrder[index] = vector<Renderable*>();
+        drawOrder[index] = std::vector<Renderable*>();
     }
 
     // add the element to the vector

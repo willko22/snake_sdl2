@@ -4,8 +4,8 @@
 #include "score.hpp"
 #include "snake.hpp"
 #include "food.hpp"
-
-using namespace std;
+// #include "debugInfo.hpp"
+// using namespace std;
 
 
 class Game {
@@ -14,12 +14,15 @@ class Game {
         RenderManager renderManager;
         Score score;
         Snake snake;
-        Direction* currentDirection;
         SDL_Rect foodBounds;
-        set<SDL_Rect*> excludeRandPos;
-        vector<Food> food;
-        bool running;
-
+        std::vector<SDL_Rect> excludeRandPos;
+        std::vector<Food> food;
+        bool running = false, simulate = false;
+        // DebugInfo debugInfo;
+        unsigned int deltaTime, lastTime, currentTime;
+        std::deque<Direction> keyBuffer;
+        Direction beforeStop;
+        SDL_Keycode key = SDLK_UNKNOWN;
 
         void handleEvents(SDL_Event& wEvent);
         void update();

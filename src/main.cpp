@@ -1,7 +1,7 @@
 #include "../include/globals.hpp"
 #include "../include/game.hpp"
 
-using namespace std;
+// using namespace std;
 
 int main( int argc, char *argv[] ){
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -28,20 +28,6 @@ int main( int argc, char *argv[] ){
         SDL_Quit();
         return 1;
     }
-
-
-    cout << "WINDOW_WIDTH: " << WINDOW_WIDTH << endl;
-    cout << "WINDOW_HEIGHT: " << WINDOW_HEIGHT << endl;
-    cout << "TILE_SIZE: " << TILE_SIZE << endl;
-    cout << "GRID_TILES_COUNT_X: " << GRID_TILES_COUNT_X << endl;
-    cout << "GRID_TILES_COUNT_Y: " << GRID_TILES_COUNT_Y << endl;
-    cout << "GRID_WIDTH: " << GRID_WIDTH << endl;
-    cout << "GRID_HEIGHT: " << GRID_HEIGHT << endl;
-    cout << "MARGIN_X: " << MARGIN_X << endl;
-    cout << "MARGIN_Y: " << MARGIN_Y << endl;
-    cout << "GRID_CENTER_TILE_X: " << GRID_CENTER_TILE_X << endl;
-    cout << "GRID_CENTER_TILE_Y: " << GRID_CENTER_TILE_Y << endl;
-
 
     Game game(renderer);    
     game.run();

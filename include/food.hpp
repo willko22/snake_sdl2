@@ -20,9 +20,9 @@ class Food : public Renderable {
         inline void setPos(int x, int y) { rect.x = x; rect.y = y; }
         inline void setColor(const SDL_Color& newColor) { color = newColor; }
         inline void setModifier(int newModifier) { modifier = newModifier; }
-        void setRandomPosition(set<SDL_Rect*> snakeBody);
+        void setRandomPosition(const std::vector<SDL_Rect>& snakeBody);
 
-        inline SDL_Rect* getRect() { return &rect; }
+        inline const SDL_Rect& getRect() const { return rect; }
 
         inline int getModifier() const { return modifier; }
 

@@ -42,7 +42,7 @@ struct Bbox {
 
         inline Bbox& operator=(const Bbox& other);
         inline Bbox& operator=(const SDL_Rect& rect);
-        inline Bbox& operator=(const tuple<int, int, int, int>& coords);
+        inline Bbox& operator=(const std::tuple<int, int, int, int>& coords);
         
 };
 

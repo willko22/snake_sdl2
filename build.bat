@@ -2,7 +2,7 @@
 set OBJ_DIR=build\obj
 set HPP_DIR=include
 set CPP_DIR=src
-set EXE_DIR=build
+set EXE_PATH=build\main.exe
 set INCLUDES= -IC:\SDL\include -LC:\SDL\lib -lmingw32 -lSDL2main -lSDL2 -lSDL2_ttf
 set WINDOW_MODE=
 
@@ -50,8 +50,7 @@ goto :eof
     exit /b 0
 
 :main
-    for %%I in (.) do set "ZIP_NAME=%%~nxI"
-    set EXE_PATH=%EXE_DIR%\%ZIP_NAME%.exe
+
     echo Compiling %EXE_PATH%...
 
     :: Delete the existing executable if it exists

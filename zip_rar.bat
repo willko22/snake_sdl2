@@ -1,5 +1,5 @@
 set EXE_DIR=./build
-set FILES=.build/"".manifest
+set FILES=./build/.manifest
 set FOLDERS=./assets ./build/dll
 set DESTINATION=./build
 

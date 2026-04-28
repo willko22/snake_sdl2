@@ -6,6 +6,7 @@
 !.gitattributes
 !makefile
 !README.md
+!LICENSE
 
 # Allow the following directories and their contents
 !src/**/*

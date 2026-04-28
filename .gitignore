@@ -1,2 +1,14 @@
-*.exe
-*.zip
+# Ignore all files in the root directory
+*
+
+# Allow the following files
+!.gitignore
+!.gitattributes
+!makefile
+!README.md
+
+# Allow the following directories and their contents
+!src/**/*
+!include/**/*
+!assets/**/*
+!.vscode/**/*
